@@ -10,7 +10,7 @@ class PriorityQueue {
         for(let i = 0; i < this.items.length; i++){
             if(queueElement.priority < this.items[i].priority){
 
-                this.items.splice(i, 1, queueElement)
+                this.items.splice(i, 0, queueElement)
                 added = true;
                 break;
             }
@@ -54,7 +54,11 @@ const priorityQueue = new PriorityQueue();
 priorityQueue.enqueue('Task 1', 2);
 priorityQueue.enqueue('Task 2', 1);
 priorityQueue.enqueue('Task 3', 3);
+priorityQueue.enqueue('Ghaith Task', 0);
+priorityQueue.enqueue('Task 22', 1);
+priorityQueue.enqueue('Task 222', 1);
 
+console.log("Priority Queue", priorityQueue);
 console.log(priorityQueue.front());
 console.log(priorityQueue.dequeue());
 console.log(priorityQueue.size());
