@@ -65,3 +65,31 @@ function divideBy2(decNumber){
 }
 
 console.log(divideBy2(1244));
+
+// The Base Converter
+// It work as a converter from decimal to any base. Instead of dividing the decimal number by 2, we can pass the desired base as
+// an argument to the method and use it in the divisions,
+
+function baseConverter(decNumber, base){
+    var remStack = new Stack(), rem, baseString = '';
+    digits = '0123456789ABCDEF';
+
+    while (decNumber > 0){
+        rem = Math.floor(decNumber % base);
+        remStack.push(rem);
+        decNumber = Math.floor(decNumber / base);
+    }
+
+    while (!remStack.isEmpty()){
+        baseString += digits[remStack.pop()];
+    }
+
+    while(!remStack.isEmpty()){
+        baseString += digits[remStack.pop()];
+    }
+    return baseString;
+}
+
+console.log(baseConverter(100345, 2));
+console.log(baseConverter(100345, 8));
+console.log(baseConverter(100345, 16));
