@@ -65,6 +65,23 @@ class Set {
         });
         return differenceSet;
     }
+
+    subset(otherSet){
+        // Step 1: Check if the current set's size is greater than the otherSet
+        if(this.size() > otherSet.size()){
+            return false;
+        }
+
+        // Step 2: Check if every value in the current set exists in otherSet
+        const values = this.values();
+        for(let i=0; i<values.length; i++){
+            if(!otherSet.has(values[i])){
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 const set = new Set();
@@ -106,6 +123,18 @@ set2.add(12);
 set2.add(14);
 set2.add(15);
 
+// Subset exampel
+
+const subset1 = new Set();
+subset1.add(1);
+subset1.add(2);
+subset1.add(5);
+
+const subset2 = new Set();
+subset2.add(1);
+subset2.add(2);
+subset2.add(3);
+
 const unionSet = setA.union(setB);
 console.log(unionSet.values());
 
@@ -114,3 +143,6 @@ console.log(intersectionSet.values());
 
 const differenceSet = set1.difference(set2);
 console.log(differenceSet.values());
+
+const isSubset = subset1.subset(subset2);
+console.log(isSubset);
