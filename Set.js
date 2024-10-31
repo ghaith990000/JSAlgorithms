@@ -45,6 +45,26 @@ class Set {
 
         return unionSet;
     }
+
+    intersection(otherSet){
+        const intersectionSet = new Set();
+        this.values().forEach(value => {
+            if(otherSet.has(value)){
+                intersectionSet.add(value);
+            }
+        });
+        return intersectionSet;
+    }
+
+    difference(otherSet){
+        const differenceSet = new Set();
+        this.values().forEach(value => {
+            if(!otherSet.has(value)){
+                differenceSet.add(value);
+            }
+        });
+        return differenceSet;
+    }
 }
 
 const set = new Set();
@@ -71,5 +91,26 @@ setB.add(3);
 setB.add(4);
 setB.add(5);
 
+// difference example
+const set1 = new Set();
+set1.add(5);
+set1.add(10);
+set1.add(15);
+set1.add(20);
+set1.add(25);
+
+const set2 = new Set();
+set2.add(5);
+set2.add(10);
+set2.add(12);
+set2.add(14);
+set2.add(15);
+
 const unionSet = setA.union(setB);
 console.log(unionSet.values());
+
+const intersectionSet = setA.intersection(setB);
+console.log(intersectionSet.values());
+
+const differenceSet = set1.difference(set2);
+console.log(differenceSet.values());
