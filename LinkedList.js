@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class LinkedList {
+export default class LinkedList {
     constructor(){
         this.head = null;
         this.length = 0;
@@ -101,6 +101,17 @@ class LinkedList {
         }
         this.length--;
         return current.element;
+    }
+
+    // Method to return all values for easier access in HashTable
+    getValues() {
+        let values = [];
+        let current = this.head;
+        while (current) {
+            values.push(current.element);
+            current = current.next;
+        }
+        return values;
     }
 
     isEmpty(){
