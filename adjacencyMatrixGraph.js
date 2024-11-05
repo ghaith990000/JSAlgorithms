@@ -34,22 +34,49 @@ class AdjacencyMatrixGraph {
         }
         return minIndex;
     }
+
+    // Floyd-Warshall algorithm to find the shortest path between all pairs of vertices
+    floydWarshall(){
+        const dist = Array.from({length: this.numVertices }, (_, i) => 
+            Array.from({length: this.numVertices}, (_, j) => this.graph[i][j])
+        );
+
+        for( let k = 0; k < this.numVertices; k++){
+            for (let i = 0; i < this.numVertices; i++){
+                for (let j = 0; j < this.numVertices; j++){
+                    if(dist[i][k] + dist[k][j] < dist[i][j]){
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+        return dist;
+    }
 }
 
+// Example usage
 const matrix = [
-    [0, 2, 4, 0, 0, 0],
-    [0, 0, 1, 4, 2, 0],
-    [0, 0, 0, 0, 3, 0],
-    [0, 0, 0, 0, 0, 2],
-    [0, 0, 0, 3, 0, 2],
-    [0, 0, 0, 0, 0, 0]
+    [0, 2, 4, Infinity, Infinity, Infinity],
+    [Infinity, 0, 1, 4, 2, Infinity],
+    [Infinity, Infinity, 0, Infinity, 3, Infinity],
+    [Infinity, Infinity, Infinity, 0, Infinity, 2],
+    [Infinity, Infinity, Infinity, 3, 0, 2],
+    [Infinity, Infinity, Infinity, Infinity, Infinity, 0]
 ];
 
 const graph = new AdjacencyMatrixGraph(matrix);
+
+// Testing Dijkstra's algorithm
 const sourceVertex = 0;
 const shortestDistances = graph.dijkstra(sourceVertex);
-
-console.log(`Shortest distances from vertex ${sourceVertex}:`);
+console.log(`Shortest distances from vertex ${sourceVertex} (Dijkstra):`);
 shortestDistances.forEach((distance, vertex) => {
     console.log(`To vertex ${vertex}: ${distance}`);
+});
+
+// Testing Floyd-Warshall algorithm
+const allPairsShortestPaths = graph.floydWarshall();
+console.log("All-pairs shortest paths (Floyd-Warshall):");
+allPairsShortestPaths.forEach((row, i) => {
+    console.log(`From vertex ${i}: ${row}`);
 });
