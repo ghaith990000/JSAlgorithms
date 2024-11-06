@@ -17,7 +17,7 @@ class PrimMST {
             mstSet[u] = true;
 
             for(let v = 0; v < this.numVertices; v++){
-                if(graph[u][v] && !mstSet[v] && this.graph[u][v] < key[v]){
+                if(this.graph[u][v] && !mstSet[v] && this.graph[u][v] < key[v]){
                     parent[v] = u;
                     key[v] = this.graph[u][v];
                 }
