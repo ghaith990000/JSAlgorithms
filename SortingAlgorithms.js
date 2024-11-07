@@ -21,6 +21,23 @@ class SortingAlgorithms {
         return arr;
     }
 
+    static insertionSort(arr){
+        let n = arr.length;
+
+        for (let i = 1; i < n; i++){
+            let current = arr[i];
+            let j = i - 1;
+
+            // Shift elements in the sorted portion to the right to make space for current
+            while (j >= 0 && arr[j] > current){
+                arr[j+1] = arr[j];
+                j--;
+            }
+            arr[j+1] = current;
+        }
+        return arr;
+    }
+
     static selectionSort(arr){
         let n = arr.length;
 
@@ -52,3 +69,6 @@ console.log("Sorted array: ", SortingAlgorithms.bubbleSort([...array]));
 
 console.log("Original array:", array);
 console.log("Sorted array (Selection Sort):", SortingAlgorithms.selectionSort([...array]));  // Copying array to avoid mutation
+
+console.log("Original array:", array);
+console.log("Sorted array (Insertion Sort):", SortingAlgorithms.insertionSort([...array]));
