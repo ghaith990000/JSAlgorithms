@@ -1,4 +1,4 @@
-class SortingAlgorithms {
+export default class SortingAlgorithms {
     static bubbleSort(arr){
         let n = arr.length;
         let swapped;
@@ -101,6 +101,69 @@ class SortingAlgorithms {
             .concat(left.slice(leftIndex))
             .concat(right.slice(rightIndex));
     }
+
+    static quickSort(array, left = 0, right = array.length - 1){
+        if(left < right){
+            const pivotIndex = this.partition(array, left, right);
+            this.quickSort(array, left, pivotIndex - 1);
+            this.quickSort(array, pivotIndex + 1, right);
+        }
+        return array;
+    }
+
+    static partition(array, left, right){
+        const pivot = array[right];
+        let i = left - 1;
+
+        for(let j = left; j < right; j++){
+            if(array[j] < pivot){
+                i++;
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        [array[i+1], array[right]] = [array[right], array[i+1]];
+        return i+1;
+    }
+
+    static heapSort(arr){
+        let n = arr.length;
+
+        // Step 1: Build a max heap
+        for(let i = Math.floor(n / 2) - 1; i >= 0; i--){
+            this.heapify(arr, n, i);
+        }
+
+        // Step 2: Extract elements from heap one by one
+        for(let i = n - 1; i > 0; i--){
+            // Move current root to end
+            [arr[0], arr[i]] = [arr[i], arr[0]];
+
+            // Call max heapify on the reduced heap
+            this.heapify(arr, i, 0);
+        }
+        return arr;
+    }
+
+    // Helper function to maintain heap property
+    static heapify(arr, n, i){
+        let largest = i;
+        const left = 2 * i + 1;
+        const right = 2 * i + 2;
+
+        if(left < n && arr[left] > arr[largest]){
+            largest = left;
+        }
+
+        if(right < n && arr[right] > arr[largest]){
+            largest = right;
+        }
+
+        if (largest !== i){
+            [arr[i], arr[largest]] = [arr[largest], arr[i]];
+            this.heapify(arr, n, largest);
+        }
+
+    }
 }
 
 const array = [64, 34, 25, 12, 22, 11, 90];
@@ -116,3 +179,7 @@ console.log("Sorted array (Insertion Sort):", SortingAlgorithms.insertionSort([.
 const mergeExampleArray = [38, 27, 43, 3, 9, 82, 10];
 console.log("Original array: ", array);
 console.log("Sorted array (Merge Sort):", SortingAlgorithms.mergeSort([...mergeExampleArray]));
+
+const heapExampleArray = [4, 10, 3, 5, 1];
+console.log("Original array:", heapExampleArray);
+console.log("Sorted array (Heap Sort):", SortingAlgorithms.heapSort([...heapExampleArray]));
